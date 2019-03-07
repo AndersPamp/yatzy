@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Yatzy</title>
+  <script src="main.js"></script>
+  <script src="place.js"></script>
+  <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body style="width: 80%; margin: auto;">
+<header><h1>YATZEE</h1></header>
+<section id="dice-roll-area">
+  <button type="button" onclick="RollMain()" id="roll-dice" class="btn btn-success">ROLL DICE
+    <span id="roll-counter">0</span></button>
+  <button type="button" onclick="ResetDice()" class="btn btn-warning">Reset dice</button>
+  <button type="button" onclick="Total()" class="btn btn-primary">Check total</button>
+  <button type="button" onclick="ClearTable()" class="btn btn-danger">Clear table</button>
+  <div class="inline">
+    <table class="table">
+      <tr>
+        <td id="td0"><h2 id="d1" style="display: none;">0</h2>
+          <input type="checkbox" id="c1"> Hold
+        </td>
+        <td id="td1"><h2 id="d2" style="display: none;">0</h2>
+          <input type="checkbox" id="c2"> Hold
+        </td>
+        <td id="td2"><h2 id="d3" style="display: none;">0</h2>
+          <input type="checkbox" id="c3"> Hold
+        </td>
+        <td id="td3"><h2 id="d4" style="display: none;">0</h2>
+          <input type="checkbox" id="c4"> Hold
+        </td>
+        <td id="td4"><h2 id="d5" style="display: none;">0</h2>
+          <input type="checkbox" id="c5"> Hold
+        </td>
+      </tr>
+    </table>
+
+  </div>
+
+</section>
+<br><br>
+<table id="main-table" class="table">
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>Player 1</th>
+    <th>Player 2</th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><h6>1's</h6></td>
+    <td id="t-p1-1" class="p1-upper"></td>
+    <td id="t-p2-1" class="p2-upper"></td>
+    <td>
+      <button onclick="PlaceUpper('t-p1-1',1); CheckSubTot()">P 1</button>
+    </td>
+    <td>
+      <button onclick="PlaceUpper('t-p2-1',1); CheckSubTot()">P 2</button>
+    </td>
+  </tr>
+  <tr>
+    <td><h6>2's</h6></td>
+    <td id="t-p1-2" class="p1-upper"></td>
+    <td id="t-p2-2" class="p2-upper"></td>
+    <td>
+      <button onclick="PlaceUpper('t-p1-2',2); CheckSubTot()">P 1</button>
+    </td>
+    <td>
+      <button onclick="PlaceUpper('t-p2-2',2); CheckSubTot()">P 2</button>
+    </td>
+  </tr>
+  <tr>
+    <td><h6>3's</h6></td>
+    <td id="t-p1-3" class="p1-upper"></td>
+    <td id="t-p2-3" class="p2-upper"></td>
+    <td>
+      <button onclick="PlaceUpper('t-p1-3',3); CheckSubTot()">P 1</button>
+    </td>
+    <td>
+      <button onclick="PlaceUpper('t-p2-3',3); CheckSubTot()">P 2</button>
+    </td>
+  </tr>
+  <tr>
+    <td><h6>4's</h6></td>
+    <td id="t-p1-4" class="p1-upper"></td>
+    <td id="t-p2-4" class="p2-upper"></td>
+    <td>
+      <button onclick="PlaceUpper('t-p1-4',4); CheckSubTot()">P 1</button>
+    </td>
+    <td>
+      <button onclick="PlaceUpper('t-p2-4',4); CheckSubTot()">P 2</button>
+    </td>
+  </tr>
+  <tr>
+    <td><h6>5's</h6></td>
+    <td id="t-p1-5" class="p1-upper"></td>
+    <td id="t-p2-5" class="p2-upper"></td>
+    <td>
+      <button onclick="PlaceUpper('t-p1-5',5); CheckSubTot()">P 1</button>
+    </td>
+    <td>
+      <button onclick="PlaceUpper('t-p2-5',5); CheckSubTot()">P 2</button>
+    </td>
+  </tr>
+  <tr>
+    <td><h6>6's</h6></td>
+    <td id="t-p1-6" class="p1-upper"></td>
+    <td id="t-p2-6" class="p2-upper"></td>
+    <td>
+      <button onclick="PlaceUpper('t-p1-6',6); CheckSubTot()">P 1</button>
+    </td>
+    <td>
+      <button onclick="PlaceUpper('t-p2-6',6); CheckSubTot()">P 2</button>
+    </td>
+  </tr>
+  <tr>
+    <td><h6>Sum</h6></td>  <!--Should run function CheckSubTot() continously-->
+    <td id="t-p1-sum" class="p1-col"></td>
+    <td id="t-p2-sum" class="p2-col"></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><h6>Bonus</h6></td>
+    <td id="t-p1-bonus" class="p1-col"></td>
+    <td id="t-p2-bonus" class="p2-col"></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><h6>1 Pair</h6></td>
+    <td id="t-p1-1p" class="p1-col"></td>
+    <td id="t-p2-1p" class="p2-col"></td>
+    <td>
+      <button onclick="Place1p('t-p1-1p')">P 1</button>
+    </td>
+    <td>
+      <button onclick="Place1p('t-p2-1p')">P 2</button>
+    </td>
+  </tr>
+  <tr>
+    <td><h6>2 Pairs</h6></td>
+    <td id="t-p1-2p" class="p1-col"></td>
+    <td id="t-p2-2p" class="p2-col"></td>
+    <td>
+      <button onclick="Place2p('t-p1-2p')">P 1</button>
+    </td>
+    <td>
+      <button onclick="Place2p('t-p2-2p')">P 2</button>
+    </td>
+  </tr>
+  <tr>
+    <td><h6>3 of a Kind</h6></td>
+    <td id="t-p1-3s" class="p1-col"></td>
+    <td id="t-p2-3s" class="p2-col"></td>
+    <td>
+      <button onclick="Place3s('t-p1-3s')">P 1</button>
+    </td>
+    <td>
+      <button onclick="Place3s('t-p2-3s')">P 2</button>
+    </td>
+  </tr>
+  <tr>
+    <td><h6>4 of a Kind</h6></td>
+    <td id="t-p1-4s" class="p1-col"></td>
+    <td id="t-p2-4s" class="p2-col"></td>
+    <td>
+      <button onclick="Place4s('t-p1-4s')">P 1</button>
+    </td>
+    <td>
+      <button onclick="Place4s('t-p2-4s')">P 2</button>
+    </td>
+  </tr>
+  <tr>
+    <td><h6>Small straight</h6></td>
+    <td id="t-p1-ss" class="p1-col"></td>
+    <td id="t-p2-ss" class="p2-col"></td>
+    <td>
+      <button onclick="PlaceSS('t-p1-ss')">P 1</button>
+    </td>
+    <td>
+      <button onclick="PlaceSS('t-p2-ss')">P 2</button>
+    </td>
+  </tr>
+  <tr>
+    <td><h6>Large straight</h6></td>
+    <td id="t-p1-ls" class="p1-col"></td>
+    <td id="t-p2-ls" class="p2-col"></td>
+    <td>
+      <button onclick="PlaceLS('t-p1-ls')">P 1</button>
+    </td>
+    <td>
+      <button onclick="PlaceLS('t-p2-ls')">P 2</button>
+    </td>
+  </tr>
+  <tr>
+    <td><h6>Full House</h6></td>
+    <td id="t-p1-fh" class="p1-col"></td>
+    <td id="t-p2-fh" class="p2-col"></td>
+    <td>
+      <button onclick="PlaceFH('t-p1-fh')">P 1</button>
+    </td>
+    <td>
+      <button onclick="PlaceFH('t-p2-fh')">P 2</button>
+    </td>
+  </tr>
+  <tr>
+    <td><h6>Chance</h6></td>
+    <td id="t-p1-ch" class="p1-col"></td>
+    <td id="t-p2-ch" class="p2-col"></td>
+    <td>
+      <button onclick="PlaceCH('t-p1-ch')">P 1</button>
+    </td>
+    <td>
+      <button onclick="PlaceCH('t-p2-ch')">P 2</button>
+    </td>
+  </tr>
+  <tr>
+    <td><h6>YATZEE</h6></td>
+    <td id="t-p1-y" class="p1-col"></td>
+    <td id="t-p2-y" class="p2-col"></td>
+    <td>
+      <button onclick="PlaceY('t-p1-y')">P 1</button>
+    </td>
+    <td>
+      <button onclick="PlaceY('t-p2-y')">P 2</button>
+    </td>
+  </tr>
+  <tr>
+    <td><h6>Total</h6></td>
+    <td id="t-p1-tot"></td>
+    <td id="t-p2-tot"></td>
+    <td></td>
+    <td></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
